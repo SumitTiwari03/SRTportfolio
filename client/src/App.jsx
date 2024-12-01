@@ -49,7 +49,6 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    console.log('Form submitted:', { username, email, message })
     try{
       const sendForm=await axios.post('/api/mail',{
         username,
@@ -59,6 +58,7 @@ export default function Portfolio() {
     }
     catch(err){
       console.log("Error:- ",err);
+
 
     }
     // Reset form fields
@@ -105,7 +105,7 @@ export default function Portfolio() {
       title: 'Cnv Holidays',
       description: 'A holiday based website.',
       tech: ['Raspberry Pi', 'Python', 'MQTT'],
-      image: 'https://example.com/placeholder-image-4.jpg',
+      image: '/cnv.jpg',
       link: 'https://cnvholidays.netlify.app'
     },
   ]
