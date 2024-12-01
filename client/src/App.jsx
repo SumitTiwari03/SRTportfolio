@@ -77,7 +77,7 @@ export default function Portfolio() {
       link: 'https://zaikahotel.netlify.app'
     },
     {
-      id: 3,
+      id: 2,
       title: 'Organiser Todos',
       description: 'A React based todo app, where a user can add edit and delete the todos. Not only this but it can aslo keep the track of all your tasks by allowingyou to check and uncheck it. The data is stored in the Local Storage.',
       tech: ['React', 'Tailwind'],
@@ -96,7 +96,7 @@ export default function Portfolio() {
       id: 4,
       title: 'Wheather tacker',
       description: 'Real-time wheather tracking app.',
-      tech: ['React Native', 'Redux', 'Crypto APIs'],
+      tech: ['Html','javascript', 'Css', 'OpenWheather APIs'],
       image: "/wheatherforcasting.png",
       link: 'https://whatweather03.netlify.app/'
     },
@@ -104,7 +104,7 @@ export default function Portfolio() {
       id: 5,
       title: 'Cnv Holidays',
       description: 'A holiday based website.',
-      tech: ['Raspberry Pi', 'Python', 'MQTT'],
+      tech: ['Html', 'Css','JavaScript' ,'Bootstrap','Swiper js'],
       image: '/cnv.jpg',
       link: 'https://cnvholidays.netlify.app'
     },
