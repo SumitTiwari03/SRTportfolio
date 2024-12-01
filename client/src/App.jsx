@@ -105,7 +105,7 @@ export default function Portfolio() {
       title: 'Cnv Holidays',
       description: 'A holiday based website.',
       tech: ['Raspberry Pi', 'Python', 'MQTT'],
-      image: '/cnv.jpg',
+      image: "/cnv.jpg",
       link: 'https://cnvholidays.netlify.app'
     },
   ]
