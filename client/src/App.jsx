@@ -49,13 +49,14 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    console.log('Form submitted:', { username, email, message })
+    
     try{
       const sendForm=await axios.post('/api/mail',{
         username,
         email,
         message
       })
+      console.log('Form submitted:', { username, email, message })
     }
     catch(err){
       console.log("Error:- ",err);
