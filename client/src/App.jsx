@@ -56,7 +56,7 @@ export default function Portfolio() {
         email,
         message
       })
-      console.log('Form submitted:', { username, email, message })
+      console.log('Form submitted after:-', { username, email, message })
     }
     catch(err){
       console.log("Error:- ",err);
