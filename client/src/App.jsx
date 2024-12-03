@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import { MAIL_API } from './config'
 
 import { Linkedin, Mail, Download, Send, ExternalLink, Moon, Sun, Github } from 'lucide-react'
 
@@ -49,15 +50,15 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    try{
-      const sendForm=await axios.post('/api/mail',{
+    try {
+      const sendForm = await axios.post(`${MAIL_API}/api/mail`, {
         username,
         email,
         message
       })
     }
-    catch(err){
-      console.log("Error:- ",err);
+    catch (err) {
+      console.log("Error:- ", err);
 
 
     }
@@ -443,52 +444,52 @@ export default function Portfolio() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <h3 className="text-2xl font-semibold mb-6">Experience</h3>
-                    {experiences.map((ele, index) => (
-                      <Card key={index} className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden`}>
-                        <CardContent className="p-6">
-                          <div className="flex items-center mb-4">
-                            <div className={`w-12 h-12 rounded-full ${isDarkMode ? 'bg-primary' : 'bg-primary/20'} flex items-center justify-center mr-4`}>
-                              <span className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-primary'}`}>{ele.company[0]}</span>
-                            </div>
-                            <div>
-                              <h4 className="text-xl font-medium">{ele.company}</h4>
-                              <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.role}</p>
-                            </div>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{ele.Duration}</span>
-                            <Button variant="outline" size="sm" asChild className="w-full">
-                              <a href={ele.link} target="_blank" className='flex justify-center items-center' rel="noopener noreferrer">
-                              {ele.letter}
-                              </a>
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                {experiences.map((ele, index) => (
+                  <Card key={index} className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden`}>
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className={`w-12 h-12 rounded-full ${isDarkMode ? 'bg-primary' : 'bg-primary/20'} flex items-center justify-center mr-4`}>
+                          <span className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-primary'}`}>{ele.company[0]}</span>
+                        </div>
+                        <div>
+                          <h4 className="text-xl font-medium">{ele.company}</h4>
+                          <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.role}</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{ele.Duration}</span>
+                        <Button variant="outline" size="sm" asChild className="w-full">
+                          <a href={ele.link} target="_blank" className='flex justify-center items-center' rel="noopener noreferrer">
+                            {ele.letter}
+                          </a>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
                 <h3 className="text-2xl font-semibold my-6">Achievements</h3>
-                    {achievements.map((ele, index) => (
-                      <Card key={index} className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden`}>
-                        <CardContent className="p-6">
-                          <div className="flex items-center mb-4">
-                            <div className={`w-12 h-12 rounded-full ${isDarkMode ? 'bg-primary' : 'bg-primary/20'} flex items-center justify-center mr-4`}>
-                              <span className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-primary'}`}>{ele.college[0]}</span>
-                            </div>
-                            <div>
-                              <h4 className="text-xl font-medium mb-3">{ele.college}</h4>
-                              <p className={`font-bold text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.fest}</p>
-                              <p className={`font- ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.ranker}</p>
-                            </div>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{ele.date}</span>
-                            <Button onClick={handleSubmit} variant="outline" size="sm" asChild className="w-full">
-                              <a className='flex justify-center items-center' rel="noopener noreferrer"> {ele.letter}</a>
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                {achievements.map((ele, index) => (
+                  <Card key={index} className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden`}>
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className={`w-12 h-12 rounded-full ${isDarkMode ? 'bg-primary' : 'bg-primary/20'} flex items-center justify-center mr-4`}>
+                          <span className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-primary'}`}>{ele.college[0]}</span>
+                        </div>
+                        <div>
+                          <h4 className="text-xl font-medium mb-3">{ele.college}</h4>
+                          <p className={`font-bold text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.fest}</p>
+                          <p className={`font- ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{ele.ranker}</p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{ele.date}</span>
+                        <Button onClick={handleSubmit} variant="outline" size="sm" asChild className="w-full">
+                          <a className='flex justify-center items-center' rel="noopener noreferrer"> {ele.letter}</a>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </motion.div>
             </div>
           </div>
@@ -562,7 +563,7 @@ export default function Portfolio() {
                   <a className='flex justify-center items-center' rel="noopener noreferrer">
                     <Send className="mr-2 h-4 w-4" /> Submit
                   </a>
-                    
+
                   {/* </a> */}
                 </Button>
               </form>
