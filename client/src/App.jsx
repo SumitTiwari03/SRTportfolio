@@ -281,7 +281,7 @@ export default function Portfolio() {
                 className="w-full md:w-1/3"
               >
                 <img
-                  src="/profile.jpg"
+                  src="/file-RVyU8Z2C8gydMtmufxTMxm.webp"
                   alt="John Doe"
                   className="rounded-full shadow-lg mx-auto w-64 h-64 object-cover"
                 />
