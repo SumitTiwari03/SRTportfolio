@@ -51,7 +51,7 @@ export default function Portfolio() {
     e.preventDefault()
     // Here you would typically send the form data to your API
     try {
-      const sendForm = await axios.post(`${MAIL_API}/api/mail`, {
+      const sendForm = await axios.post(`${MAIL_API}/mail`, {
         username,
         email,
         message
