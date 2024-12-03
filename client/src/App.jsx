@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
-import { MAIL_API } from './config'
 import { useForm } from 'react-hook-form'
 import { MAIL_API } from './config'
 
@@ -51,17 +50,18 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    console.log('Form submitted:', { username, email, message })
-    try{
-      const sendForm=await axios.post('/api/mail',{
+    try {
+      const sendForm = await axios.post(`${MAIL_API}/api/mail`, {
         username,
         email,
         message
       })
     }
-    catch(err){
-      console.log("Error:- ",err);
+    catch (err) {
+      console.log("Error:- ", err);
 
+
+    }
     // Reset form fields
     setUsername('')
     setEmail('')
@@ -78,7 +78,7 @@ export default function Portfolio() {
       link: 'https://zaikahotel.netlify.app'
     },
     {
-      id: 2,
+      id: 3,
       title: 'Organiser Todos',
       description: 'A React based todo app, where a user can add edit and delete the todos. Not only this but it can aslo keep the track of all your tasks by allowingyou to check and uncheck it. The data is stored in the Local Storage.',
       tech: ['React', 'Tailwind'],
@@ -97,7 +97,7 @@ export default function Portfolio() {
       id: 4,
       title: 'Wheather tacker',
       description: 'Real-time wheather tracking app.',
-      tech: ['Html','javascript', 'Css', 'OpenWheather APIs'],
+      tech: ['React Native', 'Redux', 'Crypto APIs'],
       image: "/wheatherforcasting.png",
       link: 'https://whatweather03.netlify.app/'
     },
@@ -106,7 +106,7 @@ export default function Portfolio() {
       title: 'Cnv Holidays',
       description: 'A holiday based website.',
       tech: ['Raspberry Pi', 'Python', 'MQTT'],
-      image: '/cnv.jpg',
+      image: "/cnv.jpg",
       link: 'https://cnvholidays.netlify.app'
     },
   ]
@@ -281,8 +281,8 @@ export default function Portfolio() {
                 className="w-full md:w-1/3"
               >
                 <img
-                  src="/file-RVyU8Z2C8gydMtmufxTMxm.webp"
-                  alt="Sumit"
+                  src="/profile.jpg"
+                  alt="John Doe"
                   className="rounded-full shadow-lg mx-auto w-64 h-64 object-cover"
                 />
               </motion.div>
@@ -597,5 +597,4 @@ export default function Portfolio() {
       </footer>
     </div>
   )
-}
 }
