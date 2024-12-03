@@ -6,9 +6,6 @@ export default defineConfig({
 
   server:{
     host: '0.0.0.0',
-    proxy:{
-      '/api':'https://sumit-dev-api.onrender.com'
-    },
   },
   plugins: [react()],
 })
