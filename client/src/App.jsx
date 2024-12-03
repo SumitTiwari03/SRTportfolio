@@ -56,7 +56,6 @@ export default function Portfolio() {
         email,
         message
       })
-      console.log("Form data:-",sendForm);
     }
     catch (err) {
       console.log("Error:- ", err);
