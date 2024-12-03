@@ -51,7 +51,7 @@ export default function Portfolio() {
     // Here you would typically send the form data to your API
     
     try{
-      const sendForm=await axios.post('/api/mail',{
+      const sendForm=await axios.post('https://sumit-dev-api.onrender.com/api/mail',{
         username,
         email,
         message
