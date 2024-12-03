@@ -50,12 +50,14 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    try {
-      const sendForm = await axios.post(`${MAIL_API}/api/mail`, {
+    console.log('Form submitted:', { username, email, message })
+    try{
+      const sendForm=await axios.post('/api/mail',{
         username,
         email,
         message
       })
+      console.log('Form submitted after:-', { username, email, message })
     }
     catch (err) {
       console.log("Error:- ", err);
@@ -78,7 +80,7 @@ export default function Portfolio() {
       link: 'https://zaikahotel.netlify.app'
     },
     {
-      id: 3,
+      id: 2,
       title: 'Organiser Todos',
       description: 'A React based todo app, where a user can add edit and delete the todos. Not only this but it can aslo keep the track of all your tasks by allowingyou to check and uncheck it. The data is stored in the Local Storage.',
       tech: ['React', 'Tailwind'],
@@ -97,7 +99,7 @@ export default function Portfolio() {
       id: 4,
       title: 'Wheather tacker',
       description: 'Real-time wheather tracking app.',
-      tech: ['React Native', 'Redux', 'Crypto APIs'],
+      tech: ['Html','javascript', 'Css', 'OpenWheather APIs'],
       image: "/wheatherforcasting.png",
       link: 'https://whatweather03.netlify.app/'
     },
@@ -106,7 +108,7 @@ export default function Portfolio() {
       title: 'Cnv Holidays',
       description: 'A holiday based website.',
       tech: ['Raspberry Pi', 'Python', 'MQTT'],
-      image: "/cnv.jpg",
+      image: '/cnv.jpg',
       link: 'https://cnvholidays.netlify.app'
     },
   ]
@@ -281,8 +283,8 @@ export default function Portfolio() {
                 className="w-full md:w-1/3"
               >
                 <img
-                  src="/profile.jpg"
-                  alt="John Doe"
+                  src="/file-RVyU8Z2C8gydMtmufxTMxm.webp"
+                  alt="Sumit"
                   className="rounded-full shadow-lg mx-auto w-64 h-64 object-cover"
                 />
               </motion.div>
