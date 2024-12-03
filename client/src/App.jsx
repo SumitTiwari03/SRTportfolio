@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
+import { MAIL_API } from './config'
 import { useForm } from 'react-hook-form'
 
 import { Linkedin, Mail, Download, Send, ExternalLink, Moon, Sun, Github } from 'lucide-react'
@@ -49,17 +50,16 @@ export default function Portfolio() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
-    
-    try{
-      const sendForm=await axios.post('https://sumit-dev-api.onrender.com/api/mail',{
+    try {
+      const sendForm = await axios.post(`${MAIL_API}/api/mail`, {
         username,
         email,
         message
       })
-      console.log('Form submitted after:-', { username, email, message })
     }
-    catch(err){
-      console.log("Error:- ",err);
+    catch (err) {
+      console.log("Error:- ", err);
+
 
     }
     // Reset form fields
