@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
+import { MAIL_API } from './config'
 import { useForm } from 'react-hook-form'
 import { MAIL_API } from './config'
 
@@ -57,13 +58,10 @@ export default function Portfolio() {
         email,
         message
       })
-      console.log('Form submitted after:-', { username, email, message })
     }
-    catch (err) {
-      console.log("Error:- ", err);
+    catch(err){
+      console.log("Error:- ",err);
 
-
-    }
     // Reset form fields
     setUsername('')
     setEmail('')
@@ -599,4 +597,5 @@ export default function Portfolio() {
       </footer>
     </div>
   )
+}
 }
