@@ -4,9 +4,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const Verify_admin = (req, res, next) => {
-  const auth_header = req.headers.authorization;
-  if (!auth_header) return res.json({ Message: "Auth header is missing" });
-  const token = auth_header.split(" ")[1];
+  // const auth_header = req.headers.authorization;
+  const cookies = req.headers.cookie;
+
+  if (!cookies) return res.json({ Message: "No login found" });
+  
+  const token = cookies.split("=")[1];
+  
   try {
     const token_role = jwt.verify(token, process.env.SECRET);
     if (token_role.role === "admin") {
@@ -16,6 +20,7 @@ const Verify_admin = (req, res, next) => {
     console.log("Invalid web token");
     res.json({ Error: err });
   }
+  
   next();
 };
 
