@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
+import Home from "./Home";
+import { Dashboard, Login } from "./pages";
 function App() {
   return (
     <Router>
