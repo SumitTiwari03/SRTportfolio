@@ -47,7 +47,7 @@ const mailer = async (req, res) => {
       await useremail.save();
       console.log("Email sent: " + info.response);
 
-      res.send("Mail sent successfully");
+      res.send({message:"Mail sent successfully",Resposne:useremail});
     }
   });
 };

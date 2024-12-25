@@ -47,14 +47,17 @@ export default function Home() {
     }
   }, [isDarkMode])
 
+  // Get in tocuch form submission function
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Here you would typically send the form data to your API
+    const sr = 1
     try {
-      const sendForm = await axios.post(`https://sumit-dev-api.onrender.com/api/mail`, {
+      const sendForm = await axios.post(`http://localhost:8080/api/mail`, {
         username,
         email,
-        message
+        message,
+        date: Date.now()
       })
     }
     catch (err) {
@@ -67,7 +70,7 @@ export default function Home() {
     setEmail('')
     setMessage('')
   }
-
+ 
   const projects = [
     {
       id: 1,
@@ -78,7 +81,7 @@ export default function Home() {
       link: 'https://zaikahotel.netlify.app'
     },
     {
-      id: 3,
+      id: 2,
       title: 'Organiser Todos',
       description: 'A React based todo app, where a user can add edit and delete the todos. Not only this but it can aslo keep the track of all your tasks by allowingyou to check and uncheck it. The data is stored in the Local Storage.',
       tech: ['React', 'Tailwind'],
