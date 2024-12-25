@@ -67,7 +67,7 @@ export default function AddProject() {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/api/dashboard/addproject",
+                "https://sumit-dev-api.onrender.com/api/dashboard/addproject",
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );

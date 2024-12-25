@@ -53,7 +53,7 @@ export default function Home() {
     // Here you would typically send the form data to your API
     const sr = 1
     try {
-      const sendForm = await axios.post(`http://localhost:8080/api/mail`, {
+      const sendForm = await axios.post(`https://sumit-dev-api.onrender.com/api/mail`, {
         username,
         email,
         message,

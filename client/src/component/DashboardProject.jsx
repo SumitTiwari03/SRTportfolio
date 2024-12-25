@@ -41,7 +41,7 @@ function DashboardProject() {
   // edit project function
   const editProject = async () => {
     try {
-      const response = await axios.put('http://localhost:8080/api/dashboard/editproject', selectedProject)
+      const response = await axios.put('https://sumit-dev-api.onrender.com/api/dashboard/editproject', selectedProject)
       console.log("response data:- ",response.data)
       console.log("SuccessFully updated:- ", response.data)
       console.log("Project details:-", selectedProject);
@@ -56,7 +56,7 @@ function DashboardProject() {
   const deleteProject = async() => {
     
     try {
-      const response = await axios.delete('http://localhost:8080/api/dashboard/deleteproject', {data: { _id: selectedProject._id }})
+      const response = await axios.delete('https://sumit-dev-api.onrender.com/api/dashboard/deleteproject', {data: { _id: selectedProject._id }})
       console.log("Project id:-", selectedProject._id);
       console.log("Project successFully delete:- ", response.data);
       
@@ -71,7 +71,7 @@ function DashboardProject() {
     setIsAddOpen(true)
   }
   useEffect(() => {
-    axios.get('http://localhost:8080/api/dashboard/getproject').then(async (res) => {
+    axios.get('https://sumit-dev-api.onrender.com/api/dashboard/getproject').then(async (res) => {
       console.log(res.data)
       const project = res.data
       await setProjects(res.data)
@@ -82,7 +82,7 @@ function DashboardProject() {
 
   // const editProject = async (id, selectedProject) => {
   //   try {
-  //     const response = await axios.put('http://localhost:8080/api/dashboard/editproject', id, selectedProject)
+  //     const response = await axios.put('https://sumit-dev-api.onrender.com/api/dashboard/editproject', id, selectedProject)
   //     console.log("SuccessFully updated:- ", response.data)
   //   } catch (err) {
   //     console.log("Error while Project edit", err);

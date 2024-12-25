@@ -40,7 +40,7 @@ function DashboardProfile() {
   
   
   useEffect(() => {
-    axios.get('http://localhost:8080/api/dashboard/profile')
+    axios.get('https://sumit-dev-api.onrender.com/api/dashboard/profile')
     .then((response) => {
       const formattedEmails = response.data.map(email => {
         const date = new Date(email.date);

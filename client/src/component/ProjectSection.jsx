@@ -6,40 +6,40 @@ import { Badge } from './badge';
 import { ExternalLink } from 'lucide-react';
 
 const ProjectSection = ({ isDarkMode }) => {
-  const projects = [
-    {
-      id: 1,
-      title: 'Zaika',
-      description: "A MERN based full-stack hotel website named Zaika Hotel's website offers an enticing showcase of delicious cuisines, easy online reservations, and contact information.",
-      tech: ['React', 'Node.js', 'MongoDB'],
-      image: '/zaika.png',
-      link: 'https://zaikahotel.netlify.app',
-    },
-    {
-      id: 2,
-      title: 'Youtube clone',
-      description: 'A youtube clone website developed to practice my API skills.',
-      tech: ['Html', 'CSS', 'JavaScript'],
-      image: '/youtubeclone.png',
-      link: 'https://youtube0309.netlify.app/',
-    },
-    {
-      id: 3,
-      title: 'Crypto Tracker',
-      description: 'Real-time cryptocurrency tracking and portfolio management app.',
-      tech: ['React Native', 'Redux', 'Crypto APIs'],
-      image: '/wheatherforcasting.png',
-      link: 'https://whatweather03.netlify.app/',
-    },
-    {
-      id: 4,
-      title: 'Cnv Holidays',
-      description: 'A holiday-based website.',
-      tech: ['Raspberry Pi', 'Python', 'MQTT'],
-      image: 'https://example.com/placeholder-image-4.jpg',
-      link: 'https://cnvholidays.netlify.app',
-    },
-  ];
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: 'Zaika',
+  //     description: "A MERN based full-stack hotel website named Zaika Hotel's website offers an enticing showcase of delicious cuisines, easy online reservations, and contact information.",
+  //     tech: ['React', 'Node.js', 'MongoDB'],
+  //     image: '/zaika.png',
+  //     link: 'https://zaikahotel.netlify.app',
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Youtube clone',
+  //     description: 'A youtube clone website developed to practice my API skills.',
+  //     tech: ['Html', 'CSS', 'JavaScript'],
+  //     image: '/youtubeclone.png',
+  //     link: 'https://youtube0309.netlify.app/',
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Crypto Tracker',
+  //     description: 'Real-time cryptocurrency tracking and portfolio management app.',
+  //     tech: ['React Native', 'Redux', 'Crypto APIs'],
+  //     image: '/wheatherforcasting.png',
+  //     link: 'https://whatweather03.netlify.app/',
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Cnv Holidays',
+  //     description: 'A holiday-based website.',
+  //     tech: ['Raspberry Pi', 'Python', 'MQTT'],
+  //     image: 'https://example.com/placeholder-image-4.jpg',
+  //     link: 'https://cnvholidays.netlify.app',
+  //   },
+  // ];
 
   return (
     <section id="projects" className="py-20">
