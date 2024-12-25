@@ -339,7 +339,7 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-12 text-center">My Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.map((project) => (
+            {projects.map((project) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -350,23 +350,44 @@ export default function Home() {
                     <CardContent className="p-6">
                       <div className="h-80 w-full object-cover rounded-md mb-4">
                         <img
-                          src={project.image}
+                          src={project.img.url}
                           alt={project.title}
                           className="w-full h-fit object-cover rounded-md mb-4"
                         />
                       </div>
-                      <h3 className={`${isDarkMode ? 'text-gray-500' : 'text-gray-600'} text-2xl font-semibold mb-2`}>{project.title}</h3>
-                      <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'} mb-4`}>{project.description}</p>
+                      <h3 className="text-2xl font-semibold mb-2">
+                        {project.title}
+                      </h3>
+                      <p className="mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((tech) => (
-                          <Badge key={tech} variant="secondary">{tech}</Badge>
+                        {project.techStack.map((tech) => (
+                          <Badge key={project.id} variant="secondary">
+                            {tech}
+                          </Badge>
                         ))}
                       </div>
-                      <Button variant="outline" size="sm" asChild className="w-full">
-                        <a href={project.link} target="_blank" className='flex justify-center items-center' rel="noopener noreferrer">
-                          <ExternalLink className="mr-2 h-4 w-4" /> Visit Project
-                        </a>
-                      </Button>
+                      <div className="flex w-full justify-between">
+                        <Button variant="outline" size="sm" asChild className="w-full">
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            className="flex justify-center items-center"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" /> Visit Project
+                          </a>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => openPopup(project)}
+                        >
+                          <p className="flex justify-center items-center cursor-pointer">
+                            <Pencil className="mr-2 h-4 w-4" /> Edit Project
+                          </p>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
