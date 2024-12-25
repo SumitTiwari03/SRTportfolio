@@ -366,7 +366,7 @@ export default function Home() {
                           </Badge>
                         ))}
                       </div>
-                      <div className="flex w-full justify-between">
+                      <div className="flex w-full">
                         <Button variant="outline" size="sm" asChild className="w-full">
                           <a
                             href={project.link}
@@ -376,16 +376,6 @@ export default function Home() {
                           >
                             <ExternalLink className="mr-2 h-4 w-4" /> Visit Project
                           </a>
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full"
-                          onClick={() => openPopup(project)}
-                        >
-                          <p className="flex justify-center items-center cursor-pointer">
-                            <Pencil className="mr-2 h-4 w-4" /> Edit Project
-                          </p>
                         </Button>
                       </div>
                     </CardContent>
