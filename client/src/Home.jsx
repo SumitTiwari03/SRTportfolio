@@ -25,7 +25,6 @@ export default function Home() {
   useEffect(() => {
     axios.get('https://sumit-dev-api.onrender.com/api/dashboard/getproject').then(async (res) => {
       console.log(res.data)
-      const project = res.data
       await setProjects(res.data)
     }).catch((err) => {
       console.log("Error while getting the projects ", err);
@@ -80,50 +79,6 @@ export default function Home() {
     setEmail('')
     setMessage('')
   }
-
-
-  // const projects = [
-  //   {
-  //     id: 1,
-  //     title: 'Zaika',
-  //     description: "A hotel website named Zaika Hotel's website offers an enticing showcase of delicious cuisines, easy online reservations, and contact information. It also have the chief side which can be access by click on the logo of the cart page.",
-  //     tech: ['React', 'Node.js', 'MongoDB'],
-  //     image: '/zaika.png',
-  //     link: 'https://zaikahotel.netlify.app'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Organiser Todos',
-  //     description: 'A React based todo app, where a user can add edit and delete the todos. Not only this but it can aslo keep the track of all your tasks by allowingyou to check and uncheck it. The data is stored in the Local Storage.',
-  //     tech: ['React', 'Tailwind'],
-  //     image: '/todo.jpg',
-  //     link: 'https://organiser-todo.vercel.app/'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Youtube clone',
-  //     description: 'A youtube clone website developed to practice my api skills',
-  //     tech: ['Html', 'css', 'Javascript'],
-  //     image: '/youtubeclone.png',
-  //     link: 'https://youtube0309.netlify.app/'
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Wheather tacker',
-  //     description: 'Real-time wheather tracking app.',
-  //     tech: ['React Native', 'Redux', 'Crypto APIs'],
-  //     image: "/wheatherforcasting.png",
-  //     link: 'https://whatweather03.netlify.app/'
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'Cnv Holidays',
-  //     description: 'A holiday based website.',
-  //     tech: ['Raspberry Pi', 'Python', 'MQTT'],
-  //     image: "/cnv.jpg",
-  //     link: 'https://cnvholidays.netlify.app'
-  //   },
-  // ]
 
   const skills = [
     { category: 'Frontend', items: ['React', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind', 'GSAP',] },
@@ -339,9 +294,9 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-12 text-center">My Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project) => (
+              {projects.map((project) => (
                 <motion.div
-                  key={project.id}
+                  key={project._id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -361,7 +316,7 @@ export default function Home() {
                       <p className="mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.techStack.map((tech) => (
-                          <Badge key={project.id} variant="secondary">
+                          <Badge key={tech} variant="secondary">
                             {tech}
                           </Badge>
                         ))}
@@ -529,7 +484,7 @@ export default function Home() {
 
               <form className="p-6 w-full flex flex-col justify-center items-center">
                 <div className="flex flex-col w-fit md:w-1/3">
-                  <label for="name" className="hidden">
+                  <label htmlFor="name" className="hidden">
                     Full Name
                   </label>
                   <input
@@ -547,7 +502,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col w-fit md:w-1/3">
-                  <label for="email" className="hidden">
+                  <label htmlFor="email" className="hidden">
                     Email
                   </label>
                   <input
@@ -565,7 +520,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col w-fit md:w-1/3 mb-4">
-                  <label for="tel" className="hidden">
+                  <label htmlFor="tel" className="hidden">
                     Number
                   </label>
                   <input

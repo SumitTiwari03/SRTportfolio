@@ -7,7 +7,7 @@ const mailer = async (req, res) => {
   // var message='I like your portfolio can you also make one for me'
   const { username, message, email } = req.body;
   var nodemailer = require("nodemailer");
-  var transporter = nodemailer.createTransport({
+  var transporter = nodemailer.createTransport({ 
     service: "gmail",
     auth: {
       user: process.env.SENDEREMAIL,

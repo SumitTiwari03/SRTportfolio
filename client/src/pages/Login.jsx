@@ -25,7 +25,7 @@ function Login() {
         // Here you would typically send the form data to your API
         try {
             setLoading(true)
-            const sendForm = await axios.post(`http://localhost:8080/api/dashboard_login`, {
+            const sendForm = await axios.post(`https://sumit-dev-api.onrender.com/api/dashboard_login`, {
                 username,
                 password,
             })
