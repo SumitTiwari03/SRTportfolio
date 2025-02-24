@@ -78,7 +78,7 @@ const ProjectSection = ({ isDarkMode }) => {
                     ))}
                   </div>
                   <Button variant="outline" size="sm" asChild className="w-full">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex justify-center items-center">
+                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="flex justify-center items-center">
                       <ExternalLink className="mr-2 h-4 w-4" /> Visit Project
                     </a>
                   </Button>

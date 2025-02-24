@@ -9,14 +9,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const addproject = async (req, res,) => {
-  const { img, title, description, techStack, projectUrl } = req.body;
+const addproject = async (req, res) => {
+  const { img, title, description, techStack, projectUrl, gitUrl } = req.body;
+  console.log("Request body :- ", req.body);
+
   try {
     // uploading the img to the cloudinary database
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "SRTportfolio",
     });
-    
+    if (!req.body.gitUrl) {
+      return res.status(400).json({ message: "gitUrl is required" });
+    }
+
     const projectadd = new projectModel({
       img: {
         url: result.secure_url,
@@ -25,6 +30,7 @@ const addproject = async (req, res,) => {
       description,
       techStack,
       projectUrl,
+      gitUrl,
     });
 
     await projectadd.save();

@@ -136,7 +136,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.5 }}
               className="text-2xl font-bold"
             >
@@ -324,12 +324,22 @@ export default function Home() {
                       <div className="flex w-full">
                         <Button variant="outline" size="sm" asChild className="w-full">
                           <a
-                            href={project.link}
+                            href={project.projectUrl}
                             target="_blank"
                             className="flex justify-center items-center"
                             rel="noopener noreferrer"
                           >
                             <ExternalLink className="mr-2 h-4 w-4" /> Visit Project
+                          </a>
+                        </Button>
+                        <Button variant="outline" size="sm" asChild className="w-full">
+                          <a
+                            href={project.gitUrl}
+                            target="_blank"
+                            className="flex justify-center items-center"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" /> Visit Github
                           </a>
                         </Button>
                       </div>

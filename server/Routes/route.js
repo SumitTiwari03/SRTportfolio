@@ -23,7 +23,7 @@ route.post(
   "/dashboard/addproject",
   upload.single("image"),
   async (req, res) => {
-    const { title, description, techStack, projectUrl } = req.body;
+    const { title, description, techStack, projectUrl,gitUrl } = req.body;
     if (!req.file) {
       return res.status(400).json({ message: "No image file provided" });
     }
@@ -43,6 +43,7 @@ route.post(
         description,
         techStack: JSON.parse(techStack), // If techStack is sent as a stringified array
         projectUrl,
+        gitUrl
       });
 
       await projectAdd.save();

@@ -66,7 +66,7 @@ function DashboardProfile() {
     // e.preventDefault()
     // Here you would typically send the form data to your API
     try {
-      const reply = await axios.post(`http://localhost:8080/api/dashboard/mailreply`, {
+      const reply = await axios.post(`https://sumit-dev-api.onrender.com/api/dashboard/mailreply`, {
         replyData
       })
       console.log("Replied mail:- ", replyData);

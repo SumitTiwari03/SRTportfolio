@@ -16,6 +16,7 @@ export default function AddProject() {
         title: "",
         description: "",
         projectUrl: "",
+        gitUrl: "",
     });
 
     const [selectedSkills, setSelectedSkills] = useState([]);
@@ -64,6 +65,7 @@ export default function AddProject() {
         formData.append("description", project.description);
         formData.append("techStack", JSON.stringify(selectedSkills));
         formData.append("projectUrl", project.projectUrl);
+        formData.append("gitUrl", project.gitUrl);
 
         try {
             const response = await axios.post(
@@ -129,6 +131,14 @@ export default function AddProject() {
                                     value={project.projectUrl}
                                     onChange={handleChange}
                                     placeholder="Enter your project's live URL"
+                                    required
+                                />
+                                <InputField
+                                    label="Github URL"
+                                    name="gitUrl"
+                                    value={project.gitUrl}
+                                    onChange={handleChange}
+                                    placeholder="Enter your GitHub's project URL"
                                     required
                                 />
                                 <TextAreaField

@@ -42,9 +42,6 @@ function DashboardProject() {
   const editProject = async () => {
     try {
       const response = await axios.put('https://sumit-dev-api.onrender.com/api/dashboard/editproject', selectedProject)
-      console.log("response data:- ",response.data)
-      console.log("SuccessFully updated:- ", response.data)
-      console.log("Project details:-", selectedProject);
       setSelectedProject(null);
       setIsOpen(false);
     } catch (err) {
@@ -143,7 +140,7 @@ function DashboardProject() {
                       <div className="flex w-full justify-between">
                         <Button variant="outline" size="sm" asChild className="w-full">
                           <a
-                            href={project.link}
+                            href={project.projectUrl}
                             target="_blank"
                             className="flex justify-center items-center"
                             rel="noopener noreferrer"
@@ -212,6 +209,15 @@ function DashboardProject() {
                 type="text"
                 value={selectedProject.projectUrl}
                 onChange={(e) => setSelectedProject({ ...selectedProject, projectUrl: e.target.value })}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label className="block mb-2">
+              <span className="text-gray-700">Github URL:</span>
+              <input
+                type="text"
+                value={selectedProject.gitUrl}
+                onChange={(e) => setSelectedProject({ ...selectedProject, gitUrl: e.target.value })}
                 className="w-full p-2 border rounded"
               />
             </label>
