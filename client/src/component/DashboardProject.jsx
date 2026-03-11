@@ -31,36 +31,88 @@ function DashboardProject() {
   const [projects, setProjects] = useState([])
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const openPopup = (project) => {
     setSelectedProject(project);
     setIsOpen(true);
+    setImagePreview(null);
+    setNewImage(null);
     console.log("Project details", project);
+  };
+
+  const closePopup = () => {
+    setSelectedProject(null);
+    setIsOpen(false);
+    setImagePreview(null);
+    setNewImage(null);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // edit project function
   const editProject = async () => {
     try {
-      const response = await axios.put('https://sumit-dev-api.onrender.com/api/dashboard/editproject', selectedProject)
-      setSelectedProject(null);
-      setIsOpen(false);
+      const formData = new FormData();
+
+      // Add all project fields
+      formData.append('_id', selectedProject._id);
+      formData.append('title', selectedProject.title);
+      formData.append('description', selectedProject.description);
+      formData.append('projectUrl', selectedProject.projectUrl);
+      formData.append('gitUrl', selectedProject.gitUrl);
+      formData.append('techStack', JSON.stringify(selectedProject.techStack));
+
+      // Add new image if selected
+      if (newImage) {
+        formData.append('image', newImage);
+      }
+
+      const response = await axios.put('https://sumit-dev-api.onrender.com/api/dashboard/editproject', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      console.log("Project updated successfully", response.data);
+      closePopup();
+
+      // Refresh projects list
+      const updatedProjects = await axios.get('https://sumit-dev-api.onrender.com/api/dashboard/getproject');
+      setProjects(updatedProjects.data);
     } catch (err) {
       console.log("Error while Project edit", err);
+      alert("Failed to update project. Please try again.");
     }
-    
   };
   // delete project function
   const deleteProject = async() => {
-    
+    if (!window.confirm('Are you sure you want to delete this project?')) {
+      return;
+    }
+
     try {
       const response = await axios.delete('https://sumit-dev-api.onrender.com/api/dashboard/deleteproject', {data: { _id: selectedProject._id }})
       console.log("Project id:-", selectedProject._id);
       console.log("Project successFully delete:- ", response.data);
-      
-      setSelectedProject(null);
-      setIsOpen(false);
+
+      closePopup();
+
+      // Refresh projects list
+      const updatedProjects = await axios.get('https://sumit-dev-api.onrender.com/api/dashboard/getproject');
+      setProjects(updatedProjects.data);
     } catch (err) {
       console.log("Error while deleting the project", err);
+      alert("Failed to delete project. Please try again.");
     }
   }
 
@@ -191,9 +243,33 @@ function DashboardProject() {
         </div>
       )} */}
       {isOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 overflow-y-auto">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-1/2 max-h-[90vh] overflow-y-auto my-8">
             <h2 className="text-xl font-semibold mb-4">EDIT PROJECT</h2>
+
+            {/* Image Preview and Upload */}
+            <label className="block mb-4">
+              <span className="text-gray-700 font-medium">Project Image:</span>
+              <div className="mt-2">
+                <div className="w-full h-48 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden mb-2">
+                  <img
+                    src={imagePreview || selectedProject.img.url}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="w-full p-2 border rounded text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Upload a new image to replace the current one
+                </p>
+              </div>
+            </label>
+
             <label className="block mb-2">
               <span className="text-gray-700">Title:</span>
               <input
@@ -222,7 +298,7 @@ function DashboardProject() {
               />
             </label>
             <label className="block mb-2">
-              <span className="text-gray-700">TectStack:</span>
+              <span className="text-gray-700">TechStack:</span>
               <input
                 type="text"
                 value={selectedProject.techStack}
@@ -239,9 +315,18 @@ function DashboardProject() {
                 className="w-full p-2 border rounded"
               />
             </label>
-            <div className="flex justify-end space-x-2">
-              <Button onClick={editProject}>Save</Button>
-              <Button onClick={deleteProject}>Delete</Button>
+            <div className="flex justify-between space-x-2">
+              <div className="flex gap-2">
+                <Button onClick={editProject} className="bg-green-600 hover:bg-green-700 text-white">
+                  Save Changes
+                </Button>
+                <Button onClick={closePopup} className="bg-gray-500 hover:bg-gray-600 text-white">
+                  Cancel
+                </Button>
+              </div>
+              <Button onClick={deleteProject} className="bg-red-600 hover:bg-red-700 text-white">
+                Delete Project
+              </Button>
             </div>
           </div>
         </div>

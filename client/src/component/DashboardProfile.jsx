@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaReply } from "react-icons/fa"
+import { FaReply, FaTrash } from "react-icons/fa"
 import {
   Card,
   Typography,
@@ -18,7 +18,7 @@ function DashboardProfile() {
   const [isModelOpen, setIsModelOpen] = useState(false)
 
 
-  const TABLE_HEAD = ["Username.", "Message", "Email", "Date", "Reply"];
+  const TABLE_HEAD = ["Username.", "Message", "Email", "Date", "Actions"];
 
   const [currentpage, setCurrentPage] = useState(1)
   const itemsPerPage = 5;
@@ -39,7 +39,7 @@ function DashboardProfile() {
   
   
   
-  useEffect(() => {
+  const fetchEmails = () => {
     axios.get('https://sumit-dev-api.onrender.com/api/dashboard/profile')
     .then((response) => {
       const formattedEmails = response.data.map(email => {
@@ -60,6 +60,10 @@ function DashboardProfile() {
       .catch(() => {
         setError('Error while getting the emails');
       });
+  };
+
+  useEffect(() => {
+    fetchEmails();
   }, []);
 
   const handleReply = async (e) => {
@@ -74,8 +78,32 @@ function DashboardProfile() {
     }
     catch (err) {
       console.log("Error:- ", err);
+    }
+  }
 
+  const handleDeleteEmail = async (emailId) => {
+    if (!window.confirm('Are you sure you want to delete this email?')) {
+      return;
+    }
 
+    try {
+      await axios.delete(`https://sumit-dev-api.onrender.com/api/dashboard/deleteemail`, {
+        data: { _id: emailId }
+      });
+      console.log("Email deleted successfully");
+
+      // Refresh the emails list
+      fetchEmails();
+
+      // If the current page becomes empty after deletion, go to the previous page
+      const newTotalItems = email.length - 1;
+      const newTotalPages = Math.ceil(newTotalItems / itemsPerPage);
+      if (currentpage > newTotalPages && newTotalPages > 0) {
+        setCurrentPage(newTotalPages);
+      }
+    } catch (err) {
+      console.log("Error while deleting email:", err);
+      alert("Failed to delete email. Please try again.");
     }
   }
 
@@ -117,7 +145,7 @@ function DashboardProfile() {
               </thead>
               <tbody>
                 {currentdata.map(
-                  ({ img, name, username, email, message, date }, index) => {
+                  ({ _id, img, name, username, email, message, date }, index) => {
                     const isLast = index === currentdata.length - 1;
 
                     const classes = isLast
@@ -125,7 +153,7 @@ function DashboardProfile() {
                       : "p-4 border-b border-blue-gray-50";
 
                     return (
-                      <tr key={index}>
+                      <tr key={_id}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
                             <Avatar src={img} alt={name} size="sm" />
@@ -168,20 +196,30 @@ function DashboardProfile() {
                           </Typography>
                         </td>
                         <td className={classes}>
-                          <Tooltip content="Reply">
-                            <button className='flex justify-center items-center' variant="text" onClick={() => {
-                              setIsModelOpen(true)
-                              console.log("Clicked");
-                              setReplyData({
-                                to: email,
-                                subject: 'Get In Touch Form submission',
-                                body: '',
-                                message:message
-                              })
-                            }}>
-                              <FaReply />
-                            </button>
-                          </Tooltip>
+                          <div className="flex gap-2">
+                            <Tooltip content="Reply">
+                              <button className='flex justify-center items-center text-blue-600 hover:text-blue-800' variant="text" onClick={() => {
+                                setIsModelOpen(true)
+                                console.log("Clicked");
+                                setReplyData({
+                                  to: email,
+                                  subject: 'Get In Touch Form submission',
+                                  body: '',
+                                  message:message
+                                })
+                              }}>
+                                <FaReply />
+                              </button>
+                            </Tooltip>
+                            <Tooltip content="Delete">
+                              <button
+                                className='flex justify-center items-center text-red-600 hover:text-red-800'
+                                onClick={() => handleDeleteEmail(_id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            </Tooltip>
+                          </div>
                         </td>
                       </tr>
                     );

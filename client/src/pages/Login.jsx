@@ -5,46 +5,74 @@ import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
     const history = useNavigate()
-    const [username, setUsername] = useState()
+    const [username, setUsername] = useState('')
     const [loading, setLoading] = useState(false)
-    const [password, setPassword] = useState()
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const { register, handleSubmit } = useForm()
 
     const handelUsername = (e) => {
         const value = e.target.value
         console.log("username :- ",value);
         setUsername(value)
+        setError('') // Clear error on input change
     }
     const handelPassword = (e) => {
         const value = e.target.value
         console.log("password :- ",value);
         setPassword(value)
+        setError('') // Clear error on input change
     }
     const handleLogin = async (e) => {
-        // e.preventDefault()
-        // Here you would typically send the form data to your API
+        setError('') // Clear previous errors
+
+        if (!username || !password) {
+            setError('Please enter both username and password')
+            return
+        }
+
         try {
             setLoading(true)
             const sendForm = await axios.post(`https://sumit-dev-api.onrender.com/api/dashboard_login`, {
                 username,
                 password,
+            }, {
+                withCredentials: true // Enable cookies for authentication
             })
             console.log("sendForm ", sendForm);
+
+            // Store token in localStorage for easy access
+            if (sendForm.data.Token) {
+                localStorage.setItem('authToken', sendForm.data.Token)
+                localStorage.setItem('isAuthenticated', 'true')
+            }
+
             setLoading(false)
             history('/dashboard')
         }
         catch (err) {
+            setLoading(false)
             console.log("Error:- ", err);
 
-
+            // Display user-friendly error message
+            if (err.response) {
+                setError(err.response.data || 'Invalid credentials')
+            } else if (err.request) {
+                setError('Unable to connect to server. Please try again.')
+            } else {
+                setError('An error occurred. Please try again.')
+            }
         }
-        // Reset form fields
-        setUsername('')
-        setPassword('')
     }
     return (
         <div className="relative flex items-top border justify-center min-h-[550px] bg-white sm:items-center sm:pt-0">
             <form className="p-6 flex flex-col items-center justify-center min-w-[400px]" onSubmit={handleSubmit(handleLogin)}>
+                <h2 className="text-2xl font-bold mb-4 text-gray-800">Dashboard Login</h2>
+                {error && (
+                    <div className="w-full mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                        {error}
+                    </div>
+                )}
                 <div className="flex flex-col mt-2 w-full">
                     <label htmlFor="email" className="hidden">
                         Username

@@ -10,6 +10,10 @@ const mailreply = require("../controllers/replymail");
 const login = require("../controllers/authenticate");
 const editproject = require("../controllers/editproject");
 const deleteproject = require("../controllers/deleteproject");
+const deleteemail = require("../controllers/deleteemail");
+const experienceController = require("../controllers/experience.controller");
+const achievementController = require("../controllers/achievement.controller");
+const skillController = require("../controllers/skill.controller");
 
 // all models
 const emailModel = require("../models/email.model");
@@ -60,10 +64,13 @@ route.post(
 );
 
 // have to make an api to edit the exitsing projects
-route.put("/dashboard/editproject", editproject);
+route.put("/dashboard/editproject", upload.single("image"), editproject);
 
 // to delete the project
 route.delete("/dashboard/deleteproject", deleteproject);
+
+// to delete an email
+route.delete("/dashboard/deleteemail", deleteemail);
 
 // dashboard se mail reply krne wala function
 route.post("/dashboard/mailreply", mailreply);
@@ -92,5 +99,23 @@ route.get("/dashboard/profile", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch emails", details: err });
   }
 });
+
+// ============= Experience Routes =============
+route.get("/experiences", experienceController.getAllExperiences);
+route.post("/dashboard/experience/add", experienceController.addExperience);
+route.put("/dashboard/experience/edit", experienceController.updateExperience);
+route.delete("/dashboard/experience/delete", experienceController.deleteExperience);
+
+// ============= Achievement Routes =============
+route.get("/achievements", achievementController.getAllAchievements);
+route.post("/dashboard/achievement/add", achievementController.addAchievement);
+route.put("/dashboard/achievement/edit", achievementController.updateAchievement);
+route.delete("/dashboard/achievement/delete", achievementController.deleteAchievement);
+
+// ============= Skill Routes =============
+route.get("/skills", skillController.getAllSkills);
+route.post("/dashboard/skill/add", skillController.addSkill);
+route.put("/dashboard/skill/edit", skillController.updateSkill);
+route.delete("/dashboard/skill/delete", skillController.deleteSkill);
 
 module.exports = route;

@@ -8,6 +8,9 @@ import LandingPage from "./Landingpage";
 import ProjectSection from "./ProjectSection";
 import DashboardProfile from "./DashboardProfile";
 import DashboardProject from "./DashboardProject";
+import DashboardSkills from "./DashboardSkills";
+import DashboardExperience from "./DashboardExperience";
+import DashboardAchievements from "./DashboardAchievements";
 import PaginatedList from "./PaginatedList";
 import AddProject from "./AddProject";
 import TextAreaField from "./TextAreaField";
@@ -28,6 +31,9 @@ export {
   ProjectSection,
   DashboardProject,
   DashboardProfile,
+  DashboardSkills,
+  DashboardExperience,
+  DashboardAchievements,
   PaginatedList,
   AddProject,
   TextAreaField,
