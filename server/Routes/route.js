@@ -14,6 +14,7 @@ const deleteemail = require("../controllers/deleteemail");
 const experienceController = require("../controllers/experience.controller");
 const achievementController = require("../controllers/achievement.controller");
 const skillController = require("../controllers/skill.controller");
+const resumeController = require("../controllers/resume.controller");
 
 // all models
 const emailModel = require("../models/email.model");
@@ -117,5 +118,10 @@ route.get("/skills", skillController.getAllSkills);
 route.post("/dashboard/skill/add", skillController.addSkill);
 route.put("/dashboard/skill/edit", skillController.updateSkill);
 route.delete("/dashboard/skill/delete", skillController.deleteSkill);
+
+// ============= Resume Routes =============
+route.get("/resume", resumeController.getResume);
+route.post("/dashboard/resume/upload", upload.single("resume"), resumeController.uploadResume);
+route.delete("/dashboard/resume/delete", resumeController.deleteResume);
 
 module.exports = route;

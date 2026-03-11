@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import './dashboard.css'
-import { DashboardProfile, DashboardProject, DashboardSkills, DashboardExperience, DashboardAchievements } from "../component";
+import { DashboardProfile, DashboardProject, DashboardSkills, DashboardExperience, DashboardAchievements, DashboardResume } from "../component";
 import { useNavigate } from "react-router-dom";
-import { Mail, FolderKanban, Award, Briefcase, Code, LogOut, Menu, X } from "lucide-react";
+import { Mail, FolderKanban, Award, Briefcase, Code, LogOut, Menu, X, FileText } from "lucide-react";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -25,6 +25,7 @@ function Dashboard() {
     { id: "skills", label: "Skills", icon: Code, color: "from-green-500 to-teal-500" },
     { id: "experience", label: "Experience", icon: Briefcase, color: "from-indigo-500 to-purple-500" },
     { id: "achievements", label: "Achievements", icon: Award, color: "from-amber-500 to-orange-500" },
+    { id: "resume", label: "Resume", icon: FileText, color: "from-violet-500 to-fuchsia-500" },
   ];
 
   return (
@@ -122,6 +123,9 @@ function Dashboard() {
           </div>
           <div style={{ display: activeTab === "achievements" ? "block" : "none" }}>
             <DashboardAchievements />
+          </div>
+          <div style={{ display: activeTab === "resume" ? "block" : "none" }}>
+            <DashboardResume />
           </div>
         </div>
       </main>
