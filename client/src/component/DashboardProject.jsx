@@ -72,6 +72,7 @@ function DashboardProject() {
       formData.append('description', selectedProject.description);
       formData.append('projectUrl', selectedProject.projectUrl);
       formData.append('gitUrl', selectedProject.gitUrl);
+      formData.append('displayOrder', selectedProject.displayOrder || 0);
       formData.append('techStack', JSON.stringify(selectedProject.techStack));
 
       // Add new image if selected
@@ -296,6 +297,20 @@ function DashboardProject() {
                 onChange={(e) => setSelectedProject({ ...selectedProject, gitUrl: e.target.value })}
                 className="w-full p-2 border rounded"
               />
+            </label>
+            <label className="block mb-2">
+              <span className="text-gray-700">Display Order (Position):</span>
+              <input
+                type="number"
+                min="0"
+                value={selectedProject.displayOrder || 0}
+                onChange={(e) => setSelectedProject({ ...selectedProject, displayOrder: parseInt(e.target.value) || 0 })}
+                className="w-full p-2 border rounded"
+                placeholder="0 = first position, 1 = second position, etc."
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Lower numbers appear first (0 = top position)
+              </p>
             </label>
             <label className="block mb-2">
               <span className="text-gray-700">TechStack:</span>

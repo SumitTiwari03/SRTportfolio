@@ -34,6 +34,16 @@ app.get("/", (req, res) => {
   return res.send("Home page");
 });
 
+// Health check endpoint for uptime monitoring
+app.get("/health", (req, res) => {
+  return res.status(200).json({
+    status: "ok",
+    message: "Server is running",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 
 
 app.listen("8080", async () => {

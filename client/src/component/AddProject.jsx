@@ -17,6 +17,7 @@ export default function AddProject() {
         description: "",
         projectUrl: "",
         gitUrl: "",
+        displayOrder: 0,
     });
 
     const [selectedSkills, setSelectedSkills] = useState([]);
@@ -27,7 +28,8 @@ export default function AddProject() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProject((prev) => ({ ...prev, [name]: value }));
+        const finalValue = name === 'displayOrder' ? parseInt(value) || 0 : value;
+        setProject((prev) => ({ ...prev, [name]: finalValue }));
     };
 
     const handleSkillSelect = (skill) => {
@@ -66,6 +68,7 @@ export default function AddProject() {
         formData.append("techStack", JSON.stringify(selectedSkills));
         formData.append("projectUrl", project.projectUrl);
         formData.append("gitUrl", project.gitUrl);
+        formData.append("displayOrder", project.displayOrder || 0);
 
         try {
             const response = await axios.post(
@@ -141,6 +144,23 @@ export default function AddProject() {
                                     placeholder="Enter your GitHub's project URL"
                                     required
                                 />
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Display Order (Position)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="displayOrder"
+                                        min="0"
+                                        value={project.displayOrder}
+                                        onChange={handleChange}
+                                        placeholder="0 = first position, 1 = second position, etc."
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        Lower numbers appear first (0 = top position)
+                                    </p>
+                                </div>
                                 <TextAreaField
                                     label="Project Description"
                                     name="description"

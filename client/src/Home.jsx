@@ -311,7 +311,7 @@ export default function Home() {
       {/* ===============================================Landing page============================================================= */}
 
       <main>
-        <section id="home">
+        <section id="home" className="pt-16 md:pt-0">
           <TechHero isDarkMode={isDarkMode} projects={projects} />
         </section>
 
@@ -477,7 +477,7 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
+              {projects.sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)).map((project, index) => (
                 <motion.div
                   key={project._id}
                   initial={{ opacity: 0, y: 30 }}
