@@ -7,8 +7,9 @@ const projectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   techStack: { type: [String], required: true },
-  projectUrl: { type: String, required: true }, 
+  projectUrl: { type: String, required: true },
   gitUrl: { type: String, required: true },
+  displayOrder: { type: Number, default: 0 },
 });
 
 const projectModel = mongoose.model("project", projectSchema);

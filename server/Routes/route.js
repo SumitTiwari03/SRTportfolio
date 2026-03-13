@@ -28,7 +28,7 @@ route.post(
   "/dashboard/addproject",
   upload.single("image"),
   async (req, res) => {
-    const { title, description, techStack, projectUrl,gitUrl } = req.body;
+    const { title, description, techStack, projectUrl, gitUrl, displayOrder } = req.body;
     if (!req.file) {
       return res.status(400).json({ message: "No image file provided" });
     }
@@ -48,7 +48,8 @@ route.post(
         description,
         techStack: JSON.parse(techStack), // If techStack is sent as a stringified array
         projectUrl,
-        gitUrl
+        gitUrl,
+        displayOrder: displayOrder ? parseInt(displayOrder) : 0
       });
 
       await projectAdd.save();
@@ -84,10 +85,10 @@ route.post("/dashboard_login", login);
 
 route.get("/dashboard/getproject", async (req, res) => {
   try {
-    const projects = await projectModel.find({});
+    const projects = await projectModel.find({}).sort({ displayOrder: 1, _id: 1 });
     res.status(200).json(projects);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch emails", details: err });
+    res.status(500).json({ error: "Failed to fetch projects", details: err });
   }
 });
 

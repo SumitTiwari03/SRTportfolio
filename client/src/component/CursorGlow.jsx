@@ -6,6 +6,17 @@ const CursorGlow = ({ isDarkMode }) => {
   const [cursorIcon, setCursorIcon] = useState(0);
   const [isOverInteractive, setIsOverInteractive] = useState(false);
 
+  // Map section IDs to cursor icons
+  const sectionIcons = {
+    'home': 0,      // ❯
+    'about': 1,     // ⟨⟩
+    'projects': 2,  // {...}
+    'skills': 3,    // </>
+    'education': 4, // ⚡
+    'contact': 5,   // ◆
+    'default': 6    // ▸
+  };
+
   const cursorIcons = ['❯', '⟨⟩', '{...}', '</>', '⚡', '◆', '▸'];
 
   useEffect(() => {
@@ -26,9 +37,30 @@ const CursorGlow = ({ isDarkMode }) => {
 
       setIsOverInteractive(isInteractive);
 
-      // Change cursor icon randomly on movement
-      if (Math.random() > 0.95) {
-        setCursorIcon(prev => (prev + 1) % cursorIcons.length);
+      // Detect which section the cursor is in
+      let currentSection = 'default';
+      const sections = ['home', 'about', 'projects', 'skills', 'education', 'contact'];
+
+      for (const sectionId of sections) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+          ) {
+            currentSection = sectionId;
+            break;
+          }
+        }
+      }
+
+      // Update cursor icon based on section
+      const newIconIndex = sectionIcons[currentSection];
+      if (newIconIndex !== cursorIcon) {
+        setCursorIcon(newIconIndex);
       }
     };
 
@@ -43,7 +75,7 @@ const CursorGlow = ({ isDarkMode }) => {
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [cursorIcon]);
 
   return (
     <>
@@ -69,15 +101,19 @@ const CursorGlow = ({ isDarkMode }) => {
       </div>
 
       {/* Hide default cursor except on interactive elements */}
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{__html: `
         * {
           cursor: none !important;
         }
 
         a, button, input, textarea, select {
-          cursor: auto !important;
+          cursor: pointer !important;
         }
-      `}</style>
+
+        input[type="text"], input[type="email"], input[type="number"], input[type="password"], textarea, select {
+          cursor: text !important;
+        }
+      `}} />
     </>
   );
 };

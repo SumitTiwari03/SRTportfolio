@@ -311,7 +311,7 @@ export default function Home() {
       {/* ===============================================Landing page============================================================= */}
 
       <main>
-        <section id="home" className="pt-16 md:pt-0">
+        <section id="home" className="pt-24 md:pt-0">
           <TechHero isDarkMode={isDarkMode} projects={projects} />
         </section>
 
