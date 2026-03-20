@@ -14,9 +14,10 @@ app.use(express.json());
  
 const allowedOrigins = [
   "http://localhost:5173", // For local development
-  "https://sumit-dev-3426.onrender.com", // Replace with your deployed frontend domain
-  "https://sumit-dev-gilt.vercel.app"
-]; 
+  "https://sumit-dev-3426.onrender.com",
+  "https://sumit-dev-gilt.vercel.app",
+  "https://sumitdev.me",
+];
 
 app.use(
   cors({
