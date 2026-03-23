@@ -36,6 +36,8 @@ function DashboardProfile() {
     body: '',
     message: ''
   })
+  const [replyLoading, setReplyLoading] = useState(false)
+  const [replyMessage, setReplyMessage] = useState({ type: '', text: '' })
   
   
   
@@ -67,17 +69,34 @@ function DashboardProfile() {
   }, []);
 
   const handleReply = async (e) => {
-    // e.preventDefault()
-    // Here you would typically send the form data to your API
+    if (!replyData.to || !replyData.subject || !replyData.body) {
+      setReplyMessage({ type: 'error', text: 'Please fill in all fields' })
+      return
+    }
+
     try {
+      setReplyLoading(true)
+      setReplyMessage({ type: '', text: '' })
+      
       const reply = await axios.post(`https://sumit-dev-api.onrender.com/api/dashboard/mailreply`, {
         replyData
       })
+      
       console.log("Replied mail:- ", replyData);
-      setIsModelOpen(false)
+      setReplyMessage({ type: 'success', text: 'Email sent successfully!' })
+      
+      setTimeout(() => {
+        setIsModelOpen(false)
+        setReplyData({ to: '', subject: '', body: '', message: '' })
+        setReplyMessage({ type: '', text: '' })
+      }, 1500)
     }
     catch (err) {
       console.log("Error:- ", err);
+      setReplyMessage({ type: 'error', text: 'Failed to send email. Please try again.' })
+    }
+    finally {
+      setReplyLoading(false)
     }
   }
 
@@ -270,6 +289,17 @@ function DashboardProfile() {
 
             {/* Modal Body */}
             <div className="p-6 space-y-4">
+              {/* Status Messages */}
+              {replyMessage.text && (
+                <div className={`p-4 rounded-xl border-2 ${
+                  replyMessage.type === 'success' 
+                    ? 'bg-green-50 border-green-300 text-green-700' 
+                    : 'bg-red-50 border-red-300 text-red-700'
+                }`}>
+                  {replyMessage.text}
+                </div>
+              )}
+
               {/* Original Message */}
               <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
                 <p className="text-xs font-bold text-gray-500 uppercase mb-2">Original Message:</p>
@@ -282,7 +312,8 @@ function DashboardProfile() {
                   type="email"
                   value={replyData.to}
                   onChange={(e) => setReplyData({ ...replyData, to: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all font-medium"
+                  disabled={replyLoading}
+                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all font-medium disabled:opacity-50"
                   placeholder="recipient@example.com"
                 />
               </label>
@@ -293,7 +324,8 @@ function DashboardProfile() {
                   type="text"
                   value={replyData.subject}
                   onChange={(e) => setReplyData({ ...replyData, subject: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all font-medium"
+                  disabled={replyLoading}
+                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all font-medium disabled:opacity-50"
                   placeholder="Email subject..."
                 />
               </label>
@@ -304,7 +336,8 @@ function DashboardProfile() {
                   rows="6"
                   value={replyData.body}
                   onChange={(e) => setReplyData({ ...replyData, body: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all resize-none"
+                  disabled={replyLoading}
+                  className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 focus:outline-none transition-all resize-none disabled:opacity-50"
                   placeholder="Write your reply here..."
                 />
               </label>
@@ -313,18 +346,25 @@ function DashboardProfile() {
             {/* Modal Footer */}
             <div className="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t-2 border-gray-200">
               <button
-                className="px-6 py-3 rounded-xl bg-white border-2 border-gray-300 text-gray-700 font-bold hover:bg-gray-100 transition-colors shadow-md"
+                className="px-6 py-3 rounded-xl bg-white border-2 border-gray-300 text-gray-700 font-bold hover:bg-gray-100 transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => setIsModelOpen(false)}
+                disabled={replyLoading}
               >
                 Cancel
               </button>
               <button
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-bold hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-colors shadow-lg"
-                onClick={() => {
-                  handleReply()
-                }}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-bold hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                onClick={handleReply}
+                disabled={replyLoading}
               >
-                Send Reply
+                {replyLoading ? (
+                  <>
+                    <span className="inline-block animate-spin">⏳</span>
+                    Sending...
+                  </>
+                ) : (
+                  'Send Reply'
+                )}
               </button>
             </div>
           </div>

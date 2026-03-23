@@ -8,6 +8,7 @@ const multer = require("multer");
 const mailer = require("../controllers/mailer");
 const mailreply = require("../controllers/replymail");
 const login = require("../controllers/authenticate");
+const forgotCredentials = require("../controllers/forgotCredentials");
 const editproject = require("../controllers/editproject");
 const deleteproject = require("../controllers/deleteproject");
 const deleteemail = require("../controllers/deleteemail");
@@ -82,6 +83,9 @@ route.post("/mail", mailer);
 
 // dashboard login route and function
 route.post("/dashboard_login", login);
+
+// forgot credentials route
+route.post("/forgot-credentials", forgotCredentials);
 
 route.get("/dashboard/getproject", async (req, res) => {
   try {
